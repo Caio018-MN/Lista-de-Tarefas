@@ -3,14 +3,16 @@ const addTaskButton = document.querySelector(".new-task-button");
 
 const tasksContainer = document.querySelector(".tasks-container");
 
+// Função para validar input
 const validateInput = () => inputElement.value.trim().length > 0;
 
+// FUnçao para adicionar tarefa
 const handleAddTask = () => {
   const inputIsValid = validateInput();
 
   console.log(inputIsValid);
 
-  if (!inputIsValid) {
+  if (inputIsValid === false) {
     return inputElement.classList.add("error");
   }
 
@@ -20,13 +22,14 @@ const handleAddTask = () => {
   const taskContent = document.createElement("p");
   taskContent.innerText = inputElement.value;
 
+  // Adicionando evento de click para marcar tarefa como concluida
   taskContent.addEventListener("click", () => handleClick(taskContent));
 
   const deleteItem = document.createElement("i");
-  deleteItem.classList.add("fas");
+  deleteItem.classList.add("far");
   deleteItem.classList.add("fa-trash-alt");
 
-
+  // Adicionando evento de click para deletar tarefa
   deleteItem.addEventListener("click", () =>
     handleDeleteClick(taskItemContainer, taskContent)
   );
@@ -41,6 +44,7 @@ const handleAddTask = () => {
   updateLocalStorage();
 };
 
+// Função para marcar tarefa como concluida
 const handleClick = (taskContent) => {
   const tasks = tasksContainer.childNodes;
 
@@ -55,6 +59,7 @@ const handleClick = (taskContent) => {
   updateLocalStorage();
 };
 
+// Função para deletar tarefa
 const handleDeleteClick = (taskItemContainer, taskContent) => {
   const tasks = tasksContainer.childNodes;
 
@@ -69,6 +74,7 @@ const handleDeleteClick = (taskItemContainer, taskContent) => {
   updateLocalStorage();
 };
 
+// Função para validar input
 const handleInputChange = () => {
   const inputIsValid = validateInput();
 
@@ -77,6 +83,7 @@ const handleInputChange = () => {
   }
 };
 
+// Função para atualizar local storage
 const updateLocalStorage = () => {
   const tasks = tasksContainer.childNodes;
 
@@ -90,6 +97,7 @@ const updateLocalStorage = () => {
   localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
 };
 
+// Função para atualizar tarefas usando local storage
 const refreshTasksUsingLocalStorage = () => {
   const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
 
@@ -121,6 +129,7 @@ const refreshTasksUsingLocalStorage = () => {
     tasksContainer.appendChild(taskItemContainer);
   }
 };
+
 
 refreshTasksUsingLocalStorage();
 
